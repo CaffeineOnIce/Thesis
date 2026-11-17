@@ -1,0 +1,43 @@
+points-
+spearmann
+based on time of day
+weekdays, weekends
+
+Arms: the candidate models. For example, the global model, the per-city adapted copy, and perhaps two or three different River regressors (linear, Hoeffding tree, KNN).
+Each step: when a new reading arrives for a city, the bandit chooses an arm, and that arm’s prediction is used.
+Reward: when the true value comes in (the next reading), reward = negative prediction error. The bandit updates its estimates for that arm.
+Per city: keep one bandit per city (or station). Kolkata might end up preferring the local model while a brand-new city leans on the global one until its local model has learned enough.
+
+Here are ideas you can combine. They're grouped by what they make generic.
+
+**Making the data comparable across cities**
+
+1. **Per-station online normalization**: standardize each station's values against its own running mean and standard deviation, so the model learns patterns rather than absolute levels.
+2. **Predict change, not level**: predict the next-hour change or ratio (e.g., PM2.5 rising 20%) instead of the raw value. Changes behave more similarly across cities than absolute levels do.
+3. **Predict AQI category instead of value**: treat it as classification into standard AQI bands. The classes mean the same thing in every city.
+4. **Masking for missing pollutants**: add "is this pollutant available?" flags so the model works whether a city measures 3 pollutants or 8.
+
+**Features that transfer to unseen cities**
+
+5. **Weather features**: wind speed and direction, humidity, temperature, and rainfall drive pollution through the same physics everywhere. Free APIs like Open-Meteo cover any city.
+6. **City descriptors instead of city IDs**: describe a city by latitude, elevation, coastal or inland, climate zone, and population density rather than its name. A new city then gets a meaningful input even though it was never seen.
+7. **Neighboring stations**: use readings from nearby stations as features, which helps when a city has few or patchy stations.
+
+**Model structures**
+
+8. **Global + local residual**: one shared model learns general dynamics, and a small per-city model learns only the correction for that city.
+9. **Warm-start cloning**: a new city starts with a copy of the global model, which then keeps learning online from local data.
+10. **Cluster cities**: group cities with similar pollution or climate patterns, train one model per cluster, and assign a new city to its nearest cluster.
+11. **Bandit model selection**: per city, let a bandit choose among the global, local, and cluster models based on recent error.
+12. **Online ensembles**: weight several River models by recent performance (e.g., River's `EWARegressor`), so weaker models fade out per city automatically.
+
+**Borrowing generality from elsewhere**
+
+13. **Pretrained time-series foundation models**: models like Chronos or TimesFM forecast zero-shot on any series. You could use them as one arm, or as a baseline to beat.
+14. **City-invariant representations (offline)**: domain-adversarial training learns features from which the city can't be identified. This happens offline in deep learning, so it suits a pretraining stage before going online.
+
+**Keeping it honest**
+
+15. **Drift detection**: use ADWIN or a similar detector to catch when a city's pattern changes, then let the local model readapt.
+16. **Uncertainty output**: give prediction intervals (e.g., quantile regression), so the system shows wider uncertainty for a new city than for Kolkata.
+17. **Leave-one-city-out evaluation**: test by streaming a city the model has never seen. This is the real proof that the model is generic.

@@ -1,0 +1,6 @@
+qid,question,station,pm25_now,pm25_pred
+q01,Can I go for my morning walk today?,Jadavpur,,
+q02,Can I go for my morning walk today?,Ballygunge,35,40
+q03,Can I go for my morning walk today?,Ballygunge,180,210
+q04,What should I do if my breathlessness gets worse on a smoggy day?,Jadavpur,,
+q05,Does wearing an N95 mask help people with COPD during high pollution?,Jadavpur,150,160

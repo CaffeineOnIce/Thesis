@@ -1,0 +1,23 @@
+curl -X 'GET' \
+  'https://api.data.gov.in/resource/3b01bcb8-0b14-4abf-b6f2-c1bfd384ba69?api-key=579b464db66ec23bdd0000017db212e92c76426c51124c7fc0555235&format=csv&offset=0&limit=10&filters%5Bcountry%5D=India&filters%5Bstate%5D=West%20Bengal&filters%5Bcity%5D=Kolkata&filters%5Bstation%5D=Jadavpur%2C%20Kolkata%20-%20WBPCB' \
+  -H 'accept: */*'
+
+Barlett’s sphericity and
+Kaiser–Meyer–Olkin metrics
+Particle swarm optimization
+ant-colony optimization
+DragonFly optimization
+Kernel Extreme Learning Machine (KELM)
+MCC (Matthews Correlation Coefficient).
+ROC curve and AUC.
+
+Particle Swarm Optimization (PSO). Inspired by bird flocking. Each particle moves toward its own best position and the swarm’s best position. It is very widely used with KELM and SVM.
+Dragonfly Algorithm (DA). Used in this paper. Movement combines separation, alignment, cohesion, attraction to food (the best solution), and repulsion from the enemy (the worst solution), plus Lévy flights for exploration.
+Grey Wolf Optimizer (GWO). Models the wolf-pack hunting hierarchy (alpha, beta, delta). The related works in this paper use it for lung nodule detection.
+Ant Colony Optimization (ACO). Ants leave pheromone trails along good paths. It is mostly used for discrete problems.
+Artificial Bee Colony (ABC). Uses employed, onlooker, and scout bees to search for food sources.
+Whale Optimization Algorithm (WOA). Mimics the spiral bubble-net hunting of humpback whales.
+Firefly, Cuckoo Search, Bat Algorithm. Similar ideas based on attraction by brightness, brood parasitism, and echolocation respectively.
+
+Hybrid methods
+These combine two approaches to balance exploration and exploitation. Examples include PSO-GA, GWO-PSO, and DA-PSO

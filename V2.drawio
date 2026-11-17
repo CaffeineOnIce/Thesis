@@ -1,0 +1,203 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="copd-arch" name="COPD RecSys Architecture">
+    <mxGraphModel dx="982" dy="538" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1420" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;fontSize=18;fontStyle=1;align=center;verticalAlign=middle;" value="Source-Agnostic, City-Agnostic Recommender for COPD Patients" vertex="1">
+          <mxGeometry height="44.25531914893617" width="1380" x="20" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c_data" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#f5f9ff;strokeColor=#6c8ebf;verticalAlign=top;align=left;spacingLeft=10;fontStyle=1;fontSize=14;html=1;" value="1. Data Layer (pollution sources)" vertex="1">
+          <mxGeometry height="376.17021276595733" width="308.95522388059703" x="20" y="86.38297872340425" as="geometry" />
+        </mxCell>
+        <mxCell id="c_pred" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#f5fbf3;strokeColor=#82b366;verticalAlign=top;align=left;spacingLeft=10;fontStyle=1;fontSize=14;html=1;" value="2. Prediction Layer (online learning)" vertex="1">
+          <mxGeometry height="376.17021276595733" width="308.95522388059703" x="370.1492537313433" y="86.38297872340425" as="geometry" />
+        </mxCell>
+        <mxCell id="c_core" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#faf6fc;strokeColor=#9673a6;verticalAlign=top;align=left;spacingLeft=10;fontStyle=1;fontSize=14;html=1;" value="4. Recommendation Engine (LangChain orchestration)" vertex="1">
+          <mxGeometry height="376.17021276595733" width="411.9402985074627" x="720.2985074626866" y="86.38297872340425" as="geometry" />
+        </mxCell>
+        <mxCell id="c_rag" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#fffaf3;strokeColor=#d79b00;verticalAlign=top;align=left;spacingLeft=10;fontStyle=1;fontSize=14;html=1;" value="3. RAG Knowledge Layer (English documents)" vertex="1">
+          <mxGeometry height="265.531914893617" width="1112.2388059701493" x="20" y="484.6808510638297" as="geometry" />
+        </mxCell>
+        <mxCell id="c_game" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#fdf5f5;strokeColor=#b85450;verticalAlign=top;align=left;spacingLeft=10;fontStyle=1;fontSize=14;html=1;" value="5. Game-Theoretic Validation (AI vs Domain Expert)" vertex="1">
+          <mxGeometry height="265.531914893617" width="1112.2388059701493" x="20" y="794.4680851063829" as="geometry" />
+        </mxCell>
+        <mxCell id="d_hist" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" value="&lt;b&gt;Historical Air-Quality Data&lt;/b&gt;&lt;br&gt;any city / station&lt;br&gt;(currently: Kolkata — Jadavpur)" vertex="1">
+          <mxGeometry height="66.38297872340425" width="267.76119402985074" x="40.59701492537313" y="141.70212765957444" as="geometry" />
+        </mxCell>
+        <mxCell id="d_live" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" value="&lt;b&gt;Live Air-Quality Feed&lt;/b&gt;&lt;br&gt;any city&#39;s API / station&lt;br&gt;(currently: data.gov.in)" vertex="1">
+          <mxGeometry height="66.38297872340425" width="267.76119402985074" x="40.59701492537313" y="252.34042553191486" as="geometry" />
+        </mxCell>
+        <mxCell id="d_any" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fontSize=14;" value="&lt;b&gt;Any Other City / Source&lt;/b&gt;&lt;br&gt;(pluggable — system is agnostic)" vertex="1">
+          <mxGeometry height="66.38297872340425" width="267.76119402985074" x="40.59701492537313" y="362.9787234042553" as="geometry" />
+        </mxCell>
+        <mxCell id="p_adapt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" value="&lt;b&gt;Source / City-Agnostic Adapter&lt;/b&gt;&lt;br&gt;maps any city&#39;s fields &amp;amp; units&lt;br&gt;into one common schema" vertex="1">
+          <mxGeometry height="66.38297872340425" width="267.76119402985074" x="390.7462686567165" y="141.70212765957444" as="geometry" />
+        </mxCell>
+        <mxCell id="p_river" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" value="&lt;b&gt;Generic Online Model (River)&lt;/b&gt;&lt;br&gt;not tied to any city — predict → learn&lt;br&gt;on whichever city&#39;s stream arrives" vertex="1">
+          <mxGeometry height="82.9787234042553" width="267.76119402985074" x="390.7462686567165" y="246.80851063829783" as="geometry" />
+        </mxCell>
+        <mxCell id="p_fcst" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" value="&lt;b&gt;Pollution Prediction&lt;/b&gt;&lt;br&gt;(exposure / risk for the patient&#39;s city)" vertex="1">
+          <mxGeometry height="66.38297872340425" width="267.76119402985074" x="390.7462686567165" y="374.04255319148933" as="geometry" />
+        </mxCell>
+        <mxCell id="r_docs" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" value="&lt;b&gt;COPD Documents&lt;/b&gt;&lt;br&gt;(English)" vertex="1">
+          <mxGeometry height="112" width="144.18" x="50" y="556" as="geometry" />
+        </mxCell>
+        <mxCell id="r_chunk" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" value="&lt;b&gt;Load &amp;amp; Chunk&lt;/b&gt;&lt;br&gt;(LangChain)" vertex="1">
+          <mxGeometry height="66.38297872340425" width="133.88059701492537" x="225.97014925373136" y="578.7234042553191" as="geometry" />
+        </mxCell>
+        <mxCell id="r_emb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" value="&lt;b&gt;Dense Embeddings&lt;/b&gt;&lt;br&gt;bge-small" vertex="1">
+          <mxGeometry height="60.85106382978722" width="144.17910447761196" x="401.04477611940297" y="528.9361702127659" as="geometry" />
+        </mxCell>
+        <mxCell id="r_chroma" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;size=10;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" value="&lt;b&gt;Chroma&lt;/b&gt;&lt;br&gt;vector store" vertex="1">
+          <mxGeometry height="71.91489361702126" width="123.5820895522388" x="586.4179104477613" y="523.4042553191489" as="geometry" />
+        </mxCell>
+        <mxCell id="r_bm25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" value="&lt;b&gt;BM25&lt;/b&gt;&lt;br&gt;keyword index" vertex="1">
+          <mxGeometry height="60.85106382978722" width="144.17910447761196" x="480.00477611940295" y="639.5744680851063" as="geometry" />
+        </mxCell>
+        <mxCell id="r_hybrid" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" value="&lt;b&gt;Hybrid Retrieval&lt;/b&gt;&lt;br&gt;dense + BM25" vertex="1">
+          <mxGeometry height="66.38297872340425" width="144.17910447761196" x="761.492537313433" y="578.7234042553191" as="geometry" />
+        </mxCell>
+        <mxCell id="r_rerank" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;" value="&lt;b&gt;Reranker&lt;/b&gt;&lt;br&gt;bge reranker" vertex="1">
+          <mxGeometry height="66.38297872340425" width="154.47761194029852" x="946.8656716417911" y="578.7234042553191" as="geometry" />
+        </mxCell>
+        <mxCell id="k_ctx" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" value="&lt;b&gt;Context Builder/Retriever&lt;/b&gt;&lt;br&gt;patient query + pollution prediction&lt;br&gt;+ top reranked passages" vertex="1">
+          <mxGeometry height="77.44680851063829" width="350.1492537313433" x="751.1940298507462" y="136.17021276595744" as="geometry" />
+        </mxCell>
+        <mxCell id="k_llm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" value="&lt;b&gt;SLM — Qwen3.5-0.8b&lt;/b&gt;&lt;br&gt;grounded generation" vertex="1">
+          <mxGeometry height="66.38297872340425" width="350.1492537313433" x="751.1940298507462" y="252.34042553191486" as="geometry" />
+        </mxCell>
+        <mxCell id="k_rec" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=0;fontSize=14;" value="&lt;b&gt;Information Recommendations&lt;/b&gt;&lt;br&gt;for the COPD patient" vertex="1">
+          <mxGeometry height="71.91489361702126" width="350.1492537313433" x="751.1940298507462" y="362.9787234042553" as="geometry" />
+        </mxCell>
+        <mxCell id="u_patient" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontStyle=1;fontSize=14;" value="COPD Patient" vertex="1">
+          <mxGeometry height="82.9787234042553" width="41.19402985074627" x="1320.0008955223882" y="219.14893617021275" as="geometry" />
+        </mxCell>
+        <mxCell id="g_ai" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" value="&lt;b&gt;AI Player&lt;/b&gt;&lt;br&gt;system&#39;s predictions /&lt;br&gt;recommendations" vertex="1">
+          <mxGeometry height="77.44680851063829" width="226.56716417910445" x="61.19402985074627" y="860.851063829787" as="geometry" />
+        </mxCell>
+        <mxCell id="g_arena" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" value="&lt;b&gt;Game-Theoretic Arena&lt;/b&gt;&lt;br&gt;(possibly adversarial)&lt;br&gt;&lt;div&gt;compete over validity&amp;nbsp;&lt;/div&gt;&lt;div&gt;of predictions&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="329.55" x="411.34" y="840" as="geometry" />
+        </mxCell>
+        <mxCell id="g_exp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" value="&lt;b&gt;Domain Expert Player&lt;/b&gt;&lt;br&gt;clinical / domain judgement" vertex="1">
+          <mxGeometry height="77.44680851063829" width="226.56716417910445" x="864.4776119402985" y="860.851063829787" as="geometry" />
+        </mxCell>
+        <mxCell id="g_out" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;" value="&lt;b&gt;Validated Predictions&lt;/b&gt;" vertex="1">
+          <mxGeometry height="49.78723404255319" width="205.97014925373136" x="473.1343283582089" y="979.9951063829786" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="d_hist" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="p_adapt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="d_live" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fontSize=14;">
+          <mxGeometry relative="1" x="0.1429" as="geometry">
+            <Array as="points">
+              <mxPoint x="339.2537313432836" y="285.531914893617" />
+              <mxPoint x="339.2537313432836" y="185.2936170212766" />
+            </Array>
+            <mxPoint x="390.47850746268665" y="185.9574468085106" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="d_any" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.001;entryY=0.835;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=14;" target="p_adapt">
+          <mxGeometry relative="1" x="0.0245" as="geometry">
+            <Array as="points">
+              <mxPoint x="359.85074626865674" y="396.17021276595733" />
+              <mxPoint x="359.85074626865674" y="197.131914893617" />
+            </Array>
+            <mxPoint x="195.07462686567166" y="396.17021276595733" as="sourcePoint" />
+            <mxPoint x="411.34328358208955" y="208.08510638297867" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="p_adapt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="p_river" value="stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="p_river" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="p_fcst">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="p_fcst" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="k_ctx">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="704.8507462686567" y="407.23404255319144" />
+              <mxPoint x="704.8507462686567" y="174.89361702127658" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="r_docs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="r_chunk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="r_chunk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="r_emb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="r_chunk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="r_bm25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="r_emb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="r_chroma">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="r_chroma" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="r_hybrid">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="r_bm25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="r_hybrid">
+          <mxGeometry relative="1" x="-0.0017" as="geometry">
+            <Array as="points">
+              <mxPoint x="710" y="670.1" />
+              <mxPoint x="710" y="611.9" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="r_hybrid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="r_rerank">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="r_rerank" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=1;exitY=0.5;entryX=1;entryY=0.5;fontSize=14;" target="k_ctx" value="top passages">
+          <mxGeometry relative="1" x="-0.5535" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1147.6865671641792" y="611.9148936170211" />
+              <mxPoint x="1147.6865671641792" y="174.89361702127658" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="u_patient" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;entryX=1;entryY=0.25;fontSize=14;" target="k_ctx" value="query">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1194.0298507462687" y="246.80851063829783" />
+              <mxPoint x="1194.0298507462687" y="154.97872340425528" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="k_ctx" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="k_llm">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="k_llm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="k_rec">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="k_rec" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=1;exitY=0.3;fontSize=14;" target="u_patient" value="delivered">
+          <mxGeometry relative="1" x="-0.1907" y="15" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1276.4" y="384.6" />
+              <mxPoint x="1276.4" y="260.6" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="k_rec" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;dashed=1;exitX=1;exitY=0.75;fontSize=14;" target="g_ai" value="outputs under review">
+          <mxGeometry relative="1" x="0.0754" as="geometry">
+            <Array as="points">
+              <mxPoint x="1230" y="416.9" />
+              <mxPoint x="1230" y="772.3" />
+              <mxPoint x="174.5" y="772.3" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="g_ai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;startArrow=block;fontSize=14;" target="g_arena">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="g_exp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;startArrow=block;fontSize=14;" target="g_arena">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="g_arena" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=14;" target="g_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

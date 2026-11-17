@@ -1,0 +1,279 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="copd-arch-v3" name="COPD RecSys Architecture">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1440" pageHeight="1160" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;" value="Station-Agnostic COPD Information Recommender (Kolkata)" vertex="1">
+          <mxGeometry height="40" width="1380" x="20" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="c_data" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#f5f9ff;strokeColor=#6c8ebf;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=14;html=1;" value="1. Data Layer (one city, many stations)" vertex="1">
+          <mxGeometry height="350" width="330" x="20" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_pred" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#f5fbf3;strokeColor=#82b366;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=14;html=1;" value="2. Prediction Layer (River, learns every hour)" vertex="1">
+          <mxGeometry height="350" width="560" x="390" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="c_rag" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#fffaf3;strokeColor=#d79b00;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=14;html=1;" value="3. RAG Knowledge Layer" vertex="1">
+          <mxGeometry height="220" width="930" x="20" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="c_pat" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#f3fbfb;strokeColor=#0e8088;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=14;html=1;" value="4. Patient Data — COPD.xls" vertex="1">
+          <mxGeometry height="170" width="930" x="20" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="c_eng" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#faf6fc;strokeColor=#9673a6;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=14;html=1;" value="5. Recommendation Engine" vertex="1">
+          <mxGeometry height="500" width="380" x="990" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="c_val" parent="1" style="rounded=1;arcSize=3;dashed=1;fillColor=#fdf5f5;strokeColor=#b85450;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontStyle=1;fontSize=14;html=1;" value="6. Validation&amp;nbsp;" vertex="1">
+          <mxGeometry height="190" width="1350" x="20" y="940" as="geometry" />
+        </mxCell>
+        <mxCell id="d_jad" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="&lt;b&gt;Jadavpur history&lt;/b&gt;&lt;br&gt;stations/Jadavpur/&amp;lt;year&amp;gt;.csv&lt;br&gt;(15-min CPCB exports, 2020–2026)" vertex="1">
+          <mxGeometry height="70" width="290" x="40" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="d_bal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="&lt;b&gt;Ballygunge history&lt;/b&gt;&lt;br&gt;stations/Ballygunge/&amp;lt;year&amp;gt;.csv&lt;br&gt;(15-min, 2023–2026; new station = new folder)" vertex="1">
+          <mxGeometry height="70" width="290" x="40" y="215" as="geometry" />
+        </mxCell>
+        <mxCell id="d_live" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;" value="&lt;b&gt;Live stream&lt;/b&gt;&lt;br&gt;data.gov.in CPCB API, checked every 1 h&lt;br&gt;(values are AQI sub-indices)&lt;br&gt;each reading appended to&lt;br&gt;stations/&amp;lt;Station&amp;gt;/live_&amp;lt;year&amp;gt;.csv" vertex="1">
+          <mxGeometry height="115" width="290" x="40" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="p_adapt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="&lt;b&gt;Station adapter&lt;/b&gt;&lt;br&gt;unify columns, 15-min → hourly,&lt;br&gt;sub-index → µg/m³,&lt;br&gt;keep 7 pollutants" vertex="1">
+          <mxGeometry height="90" width="250" x="410" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="p_feat" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" value="&lt;b&gt;Features (30-day rolling window)&lt;/b&gt;&lt;br&gt;24 h · 7 d · 30 d means, anomaly vs 30 d&lt;br&gt;lags: 1–2 h, yesterday, last week&lt;br&gt;hour / week / year cycles, co-pollutants" vertex="1">
+          <mxGeometry height="80" width="250" x="410" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="p_persist" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;dashed=1;fontSize=12;" value="Persistence baseline&lt;br&gt;y(t+1) = y(t), logged for MAE comparison" vertex="1">
+          <mxGeometry height="65" width="250" x="410" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="p_global" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="&lt;b&gt;Global model&lt;/b&gt; (ARF)&lt;br&gt;learns from all stations,&lt;br&gt;forecasts for every station" vertex="1">
+          <mxGeometry height="70" width="240" x="690" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="p_local" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;dashed=1;fontSize=12;" value="&lt;b&gt;Local models&lt;/b&gt; (ARF), one per station&lt;br&gt;logged for MAE comparison only" vertex="1">
+          <mxGeometry height="70" width="240" x="690" y="125" as="geometry" />
+        </mxCell>
+        <mxCell id="p_fcst" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;" value="&lt;b&gt;Next-hour PM2.5 forecast&lt;/b&gt;&lt;br&gt;+ CPCB category and health note" vertex="1">
+          <mxGeometry height="65" width="240" x="690" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="r_docs" parent="1" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" value="&lt;b&gt;RAG Data/&lt;/b&gt;&lt;br&gt;PDFs (GOLD 2026, WHO, CPCB, ICMR)" vertex="1">
+          <mxGeometry height="80" width="130" x="40" y="555" as="geometry" />
+        </mxCell>
+        <mxCell id="r_chunk" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="&lt;b&gt;Load and chunk&lt;/b&gt;&lt;br&gt;pypdf, 800 / 120" vertex="1">
+          <mxGeometry height="70" width="140" x="195" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="r_emb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="&lt;b&gt;Dense embeddings&lt;/b&gt;&lt;br&gt;bge-small" vertex="1">
+          <mxGeometry height="60" width="150" x="365" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="r_chroma" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;size=10;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="&lt;b&gt;Chroma&lt;/b&gt;&lt;br&gt;vector store" vertex="1">
+          <mxGeometry height="70" width="130" x="545" y="505" as="geometry" />
+        </mxCell>
+        <mxCell id="r_bm25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="&lt;b&gt;BM25&lt;/b&gt;&lt;br&gt;keyword index" vertex="1">
+          <mxGeometry height="55" width="150" x="365" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="r_rrf" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="&lt;b&gt;RRF&lt;/b&gt;&lt;br&gt;fusion,&lt;br&gt;keep top 20" vertex="1">
+          <mxGeometry height="70" width="95" x="705" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="r_rerank" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=13;" value="&lt;b&gt;bge reranker&lt;/b&gt;&lt;br&gt;keep top 4" vertex="1">
+          <mxGeometry height="70" width="115" x="820" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="r_query" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d79b00;fontSize=12;" value="&lt;b&gt;Search query&lt;/b&gt; (built per question)&lt;br&gt;question + severity + air category" vertex="1">
+          <mxGeometry height="50" width="230" x="705" y="497" as="geometry" />
+        </mxCell>
+        <mxCell id="pt_copd" parent="1" style="shape=table;startSize=0;rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontSize=13;" value="&lt;b&gt;COPD.xls&lt;/b&gt; — 101 patients&lt;br&gt;age, sex, smoking, severity, FEV1 %,&lt;br&gt;CAT, 6-min walk, comorbidities" vertex="1">
+          <mxGeometry height="105" width="260" x="40" y="775" as="geometry">
+            <mxRectangle height="60" width="260" x="40" y="775" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pt_prof" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;fontSize=13;" value="&lt;b&gt;Patient profile builder&lt;/b&gt;&lt;br&gt;severity, CAT impact band,&lt;br&gt;walk distance, other conditions" vertex="1">
+          <mxGeometry height="115" width="260" x="670" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="u_patient" parent="1" style="shape=umlActor;html=1;outlineConnect=0;fontStyle=1;fontSize=14;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;spacingRight=8;" value="COPD Patient" vertex="1">
+          <mxGeometry height="80" width="40" x="1160" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="k_ctx" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;" value="&lt;b&gt;Context builder&lt;/b&gt;&lt;br&gt;question&lt;br&gt;+ patient profile&lt;br&gt;+ pollution forecast&lt;br&gt;+ top-4 passages" vertex="1">
+          <mxGeometry height="150" width="340" x="1010" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="k_slm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;" value="&lt;b&gt;SLM&lt;/b&gt; — Qwen3.5-0.8B (V1–V4)&lt;br&gt;Qwen3.5-4B reference (V5)" vertex="1">
+          <mxGeometry height="90" width="340" x="1010" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="k_rec" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;" value="&lt;b&gt;Personalised information&lt;br&gt;recommendation&lt;/b&gt;" vertex="1">
+          <mxGeometry height="90" width="340" x="1010" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="v_sample" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" value="&lt;b&gt;Test set&lt;/b&gt;&lt;br&gt;3 patients per severity&lt;br&gt;× 2 questions × 5 air levels&lt;br&gt;(Good → Severe)" vertex="1">
+          <mxGeometry height="100" width="260" x="40" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="v_variants" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" value="&lt;b&gt;Run all variants&lt;/b&gt;&lt;br&gt;V1 SLM only · V2 + RAG&lt;br&gt;V3 + pollution · V4 + patient&lt;br&gt;V5 = V4 on the 4B model" vertex="1">
+          <mxGeometry height="100" width="300" x="340" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="v_checks" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" value="&lt;b&gt;Automatic checks&lt;/b&gt;&lt;br&gt;matches CPCB advice · points to care&lt;br&gt;mentions comorbidities&lt;br&gt;more caution for more severe patients" vertex="1">
+          <mxGeometry height="100" width="320" x="680" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="v_out" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=13;" value="&lt;b&gt;artifacts/validation_*.csv&lt;/b&gt;&lt;br&gt;by air level, overall, by severity&lt;br&gt;+ manual / clinician review" vertex="1">
+          <mxGeometry height="100" width="300" x="1040" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="d_jad" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p_adapt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="d_bal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p_adapt">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="250" />
+              <mxPoint x="370" y="165" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="d_live" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p_adapt">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="350" />
+              <mxPoint x="370" y="165" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="p_adapt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#f5fbf3;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="p_feat" value="hourly rows">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="p_feat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p_global">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="p_feat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="p_local">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="280" />
+              <mxPoint x="675" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="p_global" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="p_fcst">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="p_fcst" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.583;entryDx=0;entryDy=0;" target="k_ctx" value="air quality">
+          <mxGeometry relative="1" x="-0.7499" y="7" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="r_docs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="r_chunk">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="r_chunk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="r_emb">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="595" />
+              <mxPoint x="350" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="r_chunk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="r_bm25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="595" />
+              <mxPoint x="350" y="647" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="r_emb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="r_chroma">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="r_chroma" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="r_rrf">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690" y="540" />
+              <mxPoint x="690" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="r_bm25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="r_rrf">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690" y="647" />
+              <mxPoint x="690" y="595" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="r_rrf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="r_rerank">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="r_rerank" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.767;entryDx=0;entryDy=0;" target="k_ctx" value="passages">
+          <mxGeometry relative="1" x="0.3339" y="20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="960" y="595" />
+              <mxPoint x="960" y="415" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="pt_copd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#f3fbfb;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="pt_prof" value="lookup by patient_id">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="pt_prof" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.9;entryDx=0;entryDy=0;" target="k_ctx" value="profile">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="980" y="827" />
+              <mxPoint x="980" y="435" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="u_patient" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k_ctx" value="question (input.txt)">
+          <mxGeometry relative="1" x="-0.4545" y="-10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="k_ctx" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#faf6fc;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k_slm" value="prompt">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="k_slm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="k_rec">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" edge="1" parent="1" source="k_rec" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="u_patient" value="recommendation.txt">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1400" y="665" />
+              <mxPoint x="1400" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e25" edge="1" parent="1" source="pt_copd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="v_sample" value="patients">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" edge="1" parent="1" source="v_sample" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="v_variants">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e27" edge="1" parent="1" source="v_variants" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="v_checks">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e28" edge="1" parent="1" source="v_checks" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="v_out">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e29" edge="1" parent="1" source="k_rec" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="v_checks" value="answers">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="922" />
+              <mxPoint x="840" y="922" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" edge="1" parent="1" source="k_ctx" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;jumpStyle=arc;jumpSize=8;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.2;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="r_query" value="search query">
+          <mxGeometry relative="1" x="-0.5506" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="970" y="330" />
+              <mxPoint x="970" y="522" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e31" edge="1" parent="1" source="r_query" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;jumpStyle=arc;jumpSize=8;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.243;entryDx=0;entryDy=0;" target="r_chroma">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" edge="1" parent="1" source="r_query" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;jumpStyle=arc;jumpSize=8;exitX=0.065;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.27;entryDx=0;entryDy=0;" target="r_bm25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="720" y="485" />
+              <mxPoint x="530" y="485" />
+              <mxPoint x="530" y="635" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e33" edge="1" parent="1" source="r_query" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;jumpStyle=arc;jumpSize=8;exitX=0.748;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="r_rerank">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
