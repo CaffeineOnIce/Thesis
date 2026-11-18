@@ -1,0 +1,13 @@
+[Unit]
+Description=Permanent Static IP Alias on wlan0 (192.168.1.50)
+After=network.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'ip addr add 192.168.1.50/24 dev wlan0 label wlan0:alias || true'
+ExecStop=/bin/sh -c 'ip addr del 192.168.1.50/24 dev wlan0:alias || true'
+
+[Install]
+WantedBy=multi-user.target

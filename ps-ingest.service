@@ -1,0 +1,17 @@
+[Unit]
+Description=PolluSense Raw Telemetry Ingest Service
+After=network-online.target mosquitto.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=edgepi2
+WorkingDirectory=/home/edgepi2/pollusense
+ExecStart=/home/edgepi2/venv/bin/python /home/edgepi2/pollusense/ingest.py
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

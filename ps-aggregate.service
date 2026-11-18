@@ -1,0 +1,11 @@
+[Unit]
+Description=PolluSense 15-Minute Rolling Mean Aggregator
+After=network.target
+
+[Service]
+Type=oneshot
+User=edgepi2
+WorkingDirectory=/home/edgepi2/pollusense
+ExecStart=/home/edgepi2/venv/bin/python /home/edgepi2/pollusense/aggregate.py
+StandardOutput=journal
+StandardError=journal

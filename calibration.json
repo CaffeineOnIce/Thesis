@@ -1,0 +1,13 @@
+{
+  "device_id": "ps01",
+  "mq135_rl": 1000,
+  "mq7_rl": 10000,
+  "mq135_r0": 4930.0,
+  "mq7_r0": 1800.0,
+  "no2_m": -0.4282,
+  "no2_b": -1.6500,
+  "co_m": -1.518,
+  "co_b": 1.9958,
+  "mqtt_user": "pollusense",
+  "mqtt_pass": "CHANGE_ME"
+}
