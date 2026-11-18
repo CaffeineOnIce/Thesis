@@ -19,7 +19,7 @@ rpi/
 │   ├── calibrate.py                   # Math engine (divider compensation, Rs, T/RH, ppm -> CPCB)
 │   ├── aggregate.py                   # 15-minute basic mean aggregator -> records_15min.csv
 │   ├── r0.py                          # Clean-air R0 baseline calculation tool (--last1h)
-│   ├── live_calibrated.py             # Live terminal monitoring dashboard (CPCB & AQI)
+│   ├── live_calibrated.py             # Live terminal monitoring dashboard (DUE!!!) 
 │   ├── export_csv.py                  # CSV exporter for raw or 15-minute records over time ranges
 │   └── setup_dedicated_access.sh      # mDNS & static IP alias (192.168.1.50) setup script
 └── systemd/
