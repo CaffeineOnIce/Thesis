@@ -1,5 +1,3 @@
-"""Fills missing values with a model trained in the Kaggle notebook.
-The feature code must match the notebook exactly."""
 from pathlib import Path
 
 import joblib

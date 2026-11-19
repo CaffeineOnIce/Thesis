@@ -1,54 +1,45 @@
-"""TEMPLATE - replace with the real AQI file.
-
-Simplified Indian NAQI (CPCB breakpoints): PM2.5, PM10 and NO2 use a rolling 24 h mean, CO a rolling 8 h mean.
-AQI = highest sub-index; the pollutant giving it is the dominant pollutant.
-
-Contract the pipeline relies on:
-    compute_aqi(filled) -> DataFrame with columns AQI, Category, Dominant (same index as filled)
-    filled: DataFrame on a 15-min DatetimeIndex with no missing values, oldest rows first
-"""
+"""CPCB-style AQI from PM2.5, PM10, NO2 (24 h running mean) and CO (8 h running mean)."""
 import numpy as np
 import pandas as pd
 
-BREAKPOINTS = {
-    'PM2.5': [(0, 30, 0, 50), (31, 60, 51, 100), (61, 90, 101, 200), (91, 120, 201, 300),
-              (121, 250, 301, 400), (251, 380, 401, 500)],
-    'PM10': [(0, 50, 0, 50), (51, 100, 51, 100), (101, 250, 101, 200), (251, 350, 201, 300),
-             (351, 430, 301, 400), (431, 510, 401, 500)],
-    'NO2': [(0, 40, 0, 50), (41, 80, 51, 100), (81, 180, 101, 200), (181, 280, 201, 300),
-            (281, 400, 301, 400), (401, 800, 401, 500)],
-    'CO': [(0, 1.0, 0, 50), (1.1, 2.0, 51, 100), (2.1, 10, 101, 200), (10.1, 17, 201, 300),
-           (17.1, 34, 301, 400), (34.1, 50, 401, 500)],
-}
-AVERAGING = {'PM2.5': '24h', 'PM10': '24h', 'NO2': '24h', 'CO': '8h'}
-CATEGORIES = [(50, 'Good'), (100, 'Satisfactory'), (200, 'Moderate'), (300, 'Poor'),
-              (400, 'Very Poor'), (500, 'Severe')]
+# concentration breakpoints (CPCB NAQI) and matching index breakpoints
+BP = {"pm25": [0, 30, 60, 90, 120, 250], "pm10": [0, 50, 100, 250, 350, 430],
+      "no2": [0, 40, 80, 180, 280, 400], "co": [0, 1.0, 2.0, 10, 17, 34]}
+IDX = [0, 50, 100, 200, 300, 400]
+CATS = ["Good", "Satisfactory", "Moderate", "Poor", "Very Poor", "Severe"]
+WINDOW = {"pm25": ("24h", 64), "pm10": ("24h", 64), "no2": ("24h", 64), "co": ("8h", 24)}  # min 16 h / 6 h of 15-min data
 
-
-def sub_index(value, breakpoints):
-    if pd.isna(value):
+def sub_index(c, var):
+    if c is None or np.isnan(c):
         return np.nan
-    for c_lo, c_hi, i_lo, i_hi in breakpoints:
-        if value <= c_hi:
-            value = max(value, c_lo)
-            return i_lo + (i_hi - i_lo) * (value - c_lo) / (c_hi - c_lo)
-    return 500.0
-
+    b = BP[var]
+    for k in range(1, len(b)):
+        if c <= b[k]:
+            return IDX[k-1] + (c - b[k-1]) * (IDX[k] - IDX[k-1]) / (b[k] - b[k-1])
+    # above the Severe threshold: ASSUMPTION, slope of 100 index points per b[-1] units, capped at 500
+    return min(500.0, 400 + (c - b[-1]) * 100 / b[-1])
 
 def category(aqi):
-    for upper, name in CATEGORIES:
-        if aqi <= upper:
-            return name
-    return 'Severe'
+    if np.isnan(aqi):
+        return None
+    return CATS[min(5, int(np.searchsorted(IDX[1:], aqi, side="left")))]
 
-
-def compute_aqi(filled):
-    subs = pd.DataFrame(index=filled.index)
-    for p, window in AVERAGING.items():
-        avg = filled[p].rolling(window).mean()
-        subs[f'SI_{p}'] = avg.apply(lambda v: sub_index(v, BREAKPOINTS[p]))
-    out = pd.DataFrame(index=filled.index)
-    out['AQI'] = subs.max(axis=1).round().astype(int)
-    out['Category'] = out['AQI'].apply(category)
-    out['Dominant'] = subs.idxmax(axis=1).str.replace('SI_', '', regex=False)
+def aqi_frame(df: pd.DataFrame) -> pd.DataFrame:
+    """df: 15-min frame with pm25, pm10, no2, co. Returns running sub-indices, AQI and category."""
+    out = pd.DataFrame(index=df.index)
+    for v, (win, need) in WINDOW.items():
+        avg = df[v].rolling(win, min_periods=need).mean()
+        out[f"si_{v}"] = [sub_index(x, v) for x in avg]
+    si = out[[f"si_{v}" for v in WINDOW]]
+    n_ok = si.notna().sum(axis=1)
+    pm_ok = si[["si_pm25", "si_pm10"]].notna().any(axis=1)
+    out["aqi"] = si.max(axis=1).where((n_ok >= 3) & pm_ok)
+    out["category"] = [category(a) for a in out["aqi"]]
     return out
+
+
+NAMES = {"PM2.5": "pm25", "PM10": "pm10", "NO2": "no2", "CO": "co"}
+
+def compute_aqi(filled: pd.DataFrame) -> pd.DataFrame:
+    """Used by run.py: takes the imputed frame (PM2.5, PM10, NO2, CO, ...) and returns AQI and Category."""
+    return aqi_frame(filled.rename(columns=NAMES)).rename(columns={"aqi": "AQI", "category": "Category"})
