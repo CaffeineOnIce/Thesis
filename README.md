@@ -370,11 +370,7 @@ Generated experiment results are saved in the `results/` directory.
 - Complete E4 experiments according to the research guide.
 - Final result analysis, figures, and research documentation.
 
-## 11. Research and Contributions
-
-This repository contains the implementation and experimental work for the PolluSense outlier-detection contribution.
-
-**Primary contribution areas:**
+### Done
 - Statistical and context-aware sensor outlier detection.
 - Missing-data and outlier simulation.
 - CPCB time-series dataset preparation.
@@ -383,8 +379,3 @@ This repository contains the implementation and experimental work for the PolluS
 
 
 
-**Repository:** https://github.com/CaffeineOnIce/Thesis/tree/Subham
-
----
-
-*This repository is under active research development. Experimental results and implementation details may be updated as the remaining experiments are completed.*
