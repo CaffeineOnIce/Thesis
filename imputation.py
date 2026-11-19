@@ -94,10 +94,31 @@ def predict_stacking(frame, model):
     return Y_current
 
 
+def predict_m0(frame, model):
+    F = make_features(frame)
+    med = model['median'].reindex(pd.MultiIndex.from_arrays([frame.index.month, frame.index.hour]))
+    med.index = frame.index
+    return pd.DataFrame({p: F[f'last_{p}'].where(F[f'age_{p}'] <= model['max_age_h']).fillna(med[p])
+                         for p in pollutants}, index=frame.index)
+
+
+def hgbn_cols(p):
+    return ctx_cols + [f'cur_{o}' for o in pollutants if o != p]
+
+
+def predict_hgb_native(frame, model):
+    F = make_features(frame)
+    return pd.DataFrame({p: model[p].predict(F[hgbn_cols(p)]) for p in pollutants}, index=F.index)
+
+
 MODELS = {
     'dynamic': ('dynamic_imputation.joblib', predict_dynamic),
     'mice': ('mice_extratrees.joblib', predict_mice),
     'stacking': ('stacking_ensemble.joblib', predict_stacking),
+    'm0': ('m0_locf_median.joblib', predict_m0),
+    'mice_light': ('mice_extratrees_light.joblib', predict_mice),
+    'stacking_light': ('stacking_ensemble_light.joblib', predict_stacking),
+    'hgb_native': ('hgb_native.joblib', predict_hgb_native),
 }
 
 
