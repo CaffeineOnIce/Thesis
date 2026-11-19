@@ -1,6 +1,6 @@
 # Air-quality imputation and AQI
 
-Fills missing values in 15-minute air-quality data and calculates the AQI for every row.
+Watches a CSV of 15-minute air-quality readings. Each new row is cleaned, its gaps are filled, and its AQI is calculated, saved and shown live.
 
 ```
 input CSV → outlier detection → imputation → AQI → output CSV
@@ -10,10 +10,10 @@ input CSV → outlier detection → imputation → AQI → output CSV
 
 | Path | Purpose |
 |---|---|
-| `run.py` | Runs the whole process |
+| `run.py` | Watches the input CSV and processes each new row until stopped |
 | `outlier_detection.py` | Turns outliers into blanks (**template**) |
 | `imputation.py` | Fills blanks using a model from `models/` |
-| `aqi.py` | Calculates AQI for every row (**template**) |
+| `aqi.py` | Calculates AQI for every row (CPCB NAQI: 24 h mean for PM2.5, PM10, NO2; 8 h for CO) |
 | `imputation.ipynb` | Kaggle notebook that trains and saves the models |
 | `models/` | Trained models (`.joblib`) |
 | `results/`, `figs/`, `__results___files/` | Notebook results and figures |
@@ -41,14 +41,22 @@ input CSV → outlier detection → imputation → AQI → output CSV
    ```
    python run.py input.csv output.csv
    ```
-6. Open `output.csv`. It has one row per 15 minutes:
-   - `PM2.5`, `PM10`, `CO`, `NO2`, `Temperature`, `Humidity` (gaps filled)
-   - `Imputed` (which values were filled)
-   - `AQI`, `Category`, `Dominant`
+   It first processes the rows already in `input.csv`, then checks the file every 10 seconds.
+   Each new row goes through outlier detection → imputation → AQI, is appended to `output.csv`
+   and printed in the terminal.
+6. Press **Ctrl+C** to stop. Running it again continues after the last row in `output.csv`.
 
-To change the model, set `MODEL` in `run.py` to `'mice'` (default), `'dynamic'` or `'stacking'`.
+`output.csv` has the same columns as `input.csv` (gaps filled) plus an `AQI` column.
+
+Settings at the top of `run.py`: `MODEL` (`'mice'`, `'dynamic'` or `'stacking'`), `CHECK_EVERY` (seconds between checks), `COLUMNS` (input column names).
 
 ## Notes
 
-- `outlier_detection.py` and `aqi.py` are placeholders. Replace them, but keep the function names `detect_outliers` and `compute_aqi`.
+- `outlier_detection.py` is a placeholder. Replace it, but keep the function name `detect_outliers`.
+- AQI is blank for the first ~16 hours of an input file. `aqi.py` follows two CPCB rules:
+  - an average counts only with enough data: 16 h for the 24 h averages (PM2.5, PM10, NO2), 6 h for the 8 h average (CO)
+  - AQI needs at least 3 pollutants, one of them PM2.5 or PM10
+
+  After the first 16 h every row gets an AQI, because `run.py` always passes the previous 3 days of data.
+- AQI is not rounded (e.g. `61.59`).
 - Keep `scikit-learn==1.6.1`. The models may not load with another version.
