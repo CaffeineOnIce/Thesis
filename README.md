@@ -1,22 +1,23 @@
 # Air-quality imputation and AQI
 
-Watches a CSV of 15-minute air-quality readings. Each new row is cleaned, its gaps are filled, and its AQI is calculated, saved and shown live.
+Watches a CSV of 15-minute air-quality readings. Each new row is cleaned, its gaps are filled by a trained model, and its AQI is calculated, saved and shown live.
 
 ```
-input CSV → outlier detection → imputation → AQI → output CSV
+input.csv → run.py → outlier_detection.py → imputation.py → aqi.py → output.csv + terminal
 ```
 
 ## Files
 
-| Path | Purpose |
-|---|---|
-| `run.py` | Watches the input CSV and processes each new row until stopped |
-| `outlier_detection.py` | Turns outliers into blanks (**template**) |
-| `imputation.py` | Fills blanks using a model from `models/` |
-| `aqi.py` | Calculates AQI for every row (CPCB NAQI: 24 h mean for PM2.5, PM10, NO2; 8 h for CO) |
-| `imputation.ipynb` | Kaggle notebook that trains and saves the models |
-| `models/` | Trained models (`.joblib`) |
-| `results/`, `figs/`, `__results___files/` | Notebook results and figures |
+| File | Input | Output | What it does |
+|---|---|---|---|
+| `run.py` | `input.csv` (path given on the command line) | `output.csv` + terminal | Every 10 s, takes new rows plus 3 days of history, runs the three steps below, saves and prints the new rows. Runs until Ctrl+C |
+| `outlier_detection.py` | Table, 15-min index, columns `PM2.5, PM10, CO, NO2, Temperature, Humidity` | Same table, outliers set to blank | `detect_outliers(frame)`. **Template**: range check only, to be replaced |
+| `imputation.py` | Table from `detect_outliers` + model name | Same table, no blanks (real readings unchanged) | `impute(frame, model_name)`. Loads the model from `models/` and fills every blank |
+| `aqi.py` | Filled table (uses `PM2.5, PM10, NO2, CO`) | Table with `si_pm25, si_pm10, si_no2, si_co, AQI, Category` | `compute_aqi(filled)`. CPCB NAQI: 24 h mean for PM2.5, PM10, NO2; 8 h mean for CO; AQI = highest sub-index |
+| `imputation.ipynb` | CPCB CSVs `2022.csv`–`2025.csv` | `models/*.joblib`, `results/*.csv`, figures | Trains the 7 models on 2023–2024 and tests them on 2025 (16 gap patterns × 5 seeds). Not part of the live pipeline |
+| `models/` | — | — | The 7 trained models |
+| `results/`, `figs/`, `__results___files/` | — | — | Test results and figures from the notebook |
+| `requirements.txt` | — | — | Package versions |
 
 ## Models
 
@@ -30,7 +31,7 @@ input CSV → outlier detection → imputation → AQI → output CSV
 | M3-L | `'stacking_light'` | `stacking_ensemble_light.joblib` | M3 with 20 trees, depth 12 | Light variant for the constrained Pi |
 | HGB-native | `'hgb_native'` | `hgb_native.joblib` | One gradient-boosted model per target, trained directly on features containing NaN | Cheapest learned model |
 
-All models are trained on 2023–2024 and tested on 2025. The tree sizes are capped (depth and leaf size): uncapped forests on about 70 000 training rows would need several GB, which no Pi can load.
+The tree sizes are capped (depth and leaf size): uncapped forests on about 70 000 training rows would need several GB, which no Pi can load.
 
 In the PDF, M1 chooses the model per target on 2024. Here it uses fixed models: MLP for PM2.5 and PM10, tuned KNN for CO, Random Forest for NO2, temperature and humidity.
 
@@ -41,8 +42,8 @@ In the PDF, M1 chooses the model per target on 2024. Here it uses fixed models: 
    ```
    pip install -r requirements.txt
    ```
-3. Check that `models/` contains the `.joblib` file of the model you set in `run.py` (all 7 are saved by `imputation.ipynb`).
-4. Prepare the input CSV with these columns:
+3. Put the `.joblib` file of the model you want in `models/`, and set `MODEL` at the top of `run.py` (default `'mice'`).
+4. Prepare `input.csv` with these columns:
 
    | Column | Unit |
    |---|---|
@@ -52,27 +53,24 @@ In the PDF, M1 chooses the model per target on 2024. Here it uses fixed models: 
    | `T` (temperature) | °C |
    | `H` (humidity) | % |
 
-   If your column names differ, edit `COLUMNS` in `run.py`.
+   Blank cells are allowed. Other columns (e.g. `device_id`) are passed through. If your column names differ, edit `COLUMNS` in `run.py`.
 5. Run:
    ```
    python run.py input.csv output.csv
    ```
-   It first processes the rows already in `input.csv`, then checks the file every 10 seconds.
-   Each new row goes through outlier detection → imputation → AQI, is appended to `output.csv`
-   and printed in the terminal.
+   It first processes the rows already in `input.csv`, then checks for new rows every 10 seconds (`CHECK_EVERY`).
 6. Press **Ctrl+C** to stop. Running it again continues after the last row in `output.csv`.
 
-`output.csv` has the same columns as `input.csv` (gaps filled) plus an `AQI` column.
-
-Settings at the top of `run.py`: `MODEL` (`'mice'`, `'dynamic'`, `'stacking'`, `'m0'`, `'mice_light'`, `'stacking_light'` or `'hgb_native'`), `CHECK_EVERY` (seconds between checks), `COLUMNS` (input column names).
+**`output.csv`:** the same columns and rows as `input.csv` (sensor gaps filled, outliers replaced) plus an `AQI` column. Each new row is also printed in the terminal.
 
 ## Notes
 
 - `outlier_detection.py` is a placeholder. Replace it, but keep the function name `detect_outliers`.
 - AQI is blank for the first ~16 hours of an input file. `aqi.py` follows two CPCB rules:
-  - an average counts only with enough data: 16 h for the 24 h averages (PM2.5, PM10, NO2), 6 h for the 8 h average (CO)
+  - an average counts only with enough data: 16 h for the 24 h averages, 6 h for CO's 8 h average
   - AQI needs at least 3 pollutants, one of them PM2.5 or PM10
 
-  After the first 16 h every row gets an AQI, because `run.py` always passes the previous 3 days of data.
+  After that every row gets an AQI, because `run.py` always passes the previous 3 days of data.
 - AQI is not rounded (e.g. `61.59`).
 - Keep `scikit-learn==1.6.1`. The models may not load with another version.
+- If the features change in `imputation.ipynb`, update `make_features()` in `imputation.py` to match and retrain.
