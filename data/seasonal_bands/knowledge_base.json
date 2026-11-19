@@ -1,0 +1,474 @@
+{
+    "metadata": {
+        "station": "Jadavpur CPCB",
+        "source": "CPCB",
+        "train_years": [
+            2023,
+            2024
+        ],
+        "test_years_reserved": [
+            2025
+        ],
+        "frequency": "15-min",
+        "lower_percentile": 5,
+        "upper_percentile": 95,
+        "missing_value_policy": "Missing values are ignored during statistical computation.",
+        "note": "Generated from CPCB 15-min data for 2023\u20132024 only. Year 2025 is reserved for evaluation to avoid data leakage."
+    },
+    "seasons": {
+        "winter": [
+            12,
+            1,
+            2
+        ],
+        "summer": [
+            3,
+            4,
+            5
+        ],
+        "monsoon": [
+            6,
+            7,
+            8,
+            9
+        ],
+        "post_monsoon": [
+            10,
+            11
+        ]
+    },
+    "pollutants": {
+        "pm25": {
+            "winter": {
+                "count": 16885,
+                "missing": 491,
+                "missing_percentage": 2.8257,
+                "mean": 87.2668,
+                "median": 82.52,
+                "mad": 24.88,
+                "std": 35.7515,
+                "p5": 39.66,
+                "p95": 151.966,
+                "min": 0.88,
+                "max": 244.44
+            },
+            "summer": {
+                "count": 16923,
+                "missing": 741,
+                "missing_percentage": 4.195,
+                "mean": 37.7479,
+                "median": 33.51,
+                "mad": 11.92,
+                "std": 19.9881,
+                "p5": 12.253,
+                "p95": 77.156,
+                "min": 2.95,
+                "max": 121.72
+            },
+            "monsoon": {
+                "count": 22151,
+                "missing": 1273,
+                "missing_percentage": 5.4346,
+                "mean": 22.0175,
+                "median": 18.49,
+                "mad": 6.85,
+                "std": 13.3508,
+                "p5": 7.99,
+                "p95": 46.23,
+                "min": 2.82,
+                "max": 105.21
+            },
+            "post_monsoon": {
+                "count": 11425,
+                "missing": 287,
+                "missing_percentage": 2.4505,
+                "mean": 57.6616,
+                "median": 53.57,
+                "mad": 19.28,
+                "std": 33.2318,
+                "p5": 15.82,
+                "p95": 112.43,
+                "min": 3.18,
+                "max": 452.09
+            }
+        },
+        "pm10": {
+            "winter": {
+                "count": 16898,
+                "missing": 478,
+                "missing_percentage": 2.7509,
+                "mean": 166.9707,
+                "median": 165.0,
+                "mad": 44.31,
+                "std": 61.7355,
+                "p5": 77.41,
+                "p95": 277.71,
+                "min": 8.0,
+                "max": 414.03
+            },
+            "summer": {
+                "count": 16923,
+                "missing": 741,
+                "missing_percentage": 4.195,
+                "mean": 74.278,
+                "median": 66.05,
+                "mad": 22.72,
+                "std": 39.3994,
+                "p5": 26.63,
+                "p95": 146.933,
+                "min": 1.96,
+                "max": 639.17
+            },
+            "monsoon": {
+                "count": 22086,
+                "missing": 1338,
+                "missing_percentage": 5.7121,
+                "mean": 45.6601,
+                "median": 39.59,
+                "mad": 10.4,
+                "std": 25.7291,
+                "p5": 21.51,
+                "p95": 88.07,
+                "min": 8.0,
+                "max": 273.97
+            },
+            "post_monsoon": {
+                "count": 11420,
+                "missing": 292,
+                "missing_percentage": 2.4932,
+                "mean": 121.1129,
+                "median": 111.545,
+                "mad": 41.105,
+                "std": 70.3256,
+                "p5": 34.76,
+                "p95": 241.8815,
+                "min": 8.0,
+                "max": 763.14
+            }
+        },
+        "no2": {
+            "winter": {
+                "count": 16685,
+                "missing": 691,
+                "missing_percentage": 3.9767,
+                "mean": 15.004,
+                "median": 7.81,
+                "mad": 5.77,
+                "std": 14.5219,
+                "p5": 1.65,
+                "p95": 40.42,
+                "min": 0.01,
+                "max": 168.16
+            },
+            "summer": {
+                "count": 16791,
+                "missing": 873,
+                "missing_percentage": 4.9423,
+                "mean": 19.6127,
+                "median": 15.33,
+                "mad": 7.86,
+                "std": 18.1724,
+                "p5": 1.815,
+                "p95": 47.165,
+                "min": 0.01,
+                "max": 309.28
+            },
+            "monsoon": {
+                "count": 22341,
+                "missing": 1083,
+                "missing_percentage": 4.6235,
+                "mean": 13.6338,
+                "median": 12.58,
+                "mad": 3.03,
+                "std": 9.7925,
+                "p5": 3.98,
+                "p95": 32.56,
+                "min": 0.03,
+                "max": 274.82
+            },
+            "post_monsoon": {
+                "count": 11360,
+                "missing": 352,
+                "missing_percentage": 3.0055,
+                "mean": 30.5308,
+                "median": 26.61,
+                "mad": 12.86,
+                "std": 19.963,
+                "p5": 7.519,
+                "p95": 64.511,
+                "min": 0.02,
+                "max": 370.39
+            }
+        },
+        "co": {
+            "winter": {
+                "count": 16829,
+                "missing": 547,
+                "missing_percentage": 3.148,
+                "mean": 1.287,
+                "median": 1.14,
+                "mad": 0.45,
+                "std": 0.7821,
+                "p5": 0.35,
+                "p95": 2.93,
+                "min": 0.01,
+                "max": 4.68
+            },
+            "summer": {
+                "count": 16677,
+                "missing": 987,
+                "missing_percentage": 5.5876,
+                "mean": 0.6359,
+                "median": 0.45,
+                "mad": 0.18,
+                "std": 0.5138,
+                "p5": 0.15,
+                "p95": 1.7,
+                "min": 0.0,
+                "max": 5.51
+            },
+            "monsoon": {
+                "count": 22442,
+                "missing": 982,
+                "missing_percentage": 4.1923,
+                "mean": 0.4753,
+                "median": 0.45,
+                "mad": 0.09,
+                "std": 0.1987,
+                "p5": 0.22,
+                "p95": 0.76,
+                "min": 0.0,
+                "max": 4.08
+            },
+            "post_monsoon": {
+                "count": 11310,
+                "missing": 402,
+                "missing_percentage": 3.4324,
+                "mean": 0.9328,
+                "median": 0.74,
+                "mad": 0.28,
+                "std": 0.6339,
+                "p5": 0.24,
+                "p95": 2.34,
+                "min": 0.01,
+                "max": 4.29
+            }
+        },
+        "o3": {
+            "winter": {
+                "count": 16845,
+                "missing": 531,
+                "missing_percentage": 3.0559,
+                "mean": 17.4603,
+                "median": 13.06,
+                "mad": 4.92,
+                "std": 15.9338,
+                "p5": 4.34,
+                "p95": 48.168,
+                "min": 0.03,
+                "max": 163.08
+            },
+            "summer": {
+                "count": 16946,
+                "missing": 718,
+                "missing_percentage": 4.0648,
+                "mean": 43.5144,
+                "median": 31.74,
+                "mad": 17.415,
+                "std": 33.519,
+                "p5": 7.75,
+                "p95": 113.9125,
+                "min": 0.34,
+                "max": 178.27
+            },
+            "monsoon": {
+                "count": 21925,
+                "missing": 1499,
+                "missing_percentage": 6.3994,
+                "mean": 21.9036,
+                "median": 18.99,
+                "mad": 6.04,
+                "std": 13.5934,
+                "p5": 6.96,
+                "p95": 48.444,
+                "min": 0.26,
+                "max": 197.18
+            },
+            "post_monsoon": {
+                "count": 11407,
+                "missing": 305,
+                "missing_percentage": 2.6042,
+                "mean": 23.0548,
+                "median": 20.32,
+                "mad": 8.26,
+                "std": 14.4752,
+                "p5": 7.17,
+                "p95": 49.054,
+                "min": 1.61,
+                "max": 131.23
+            }
+        },
+        "temperature": {
+            "winter": {
+                "count": 17159,
+                "missing": 217,
+                "missing_percentage": 1.2488,
+                "mean": 21.6886,
+                "median": 21.55,
+                "mad": 2.81,
+                "std": 3.8821,
+                "p5": 15.53,
+                "p95": 28.161,
+                "min": 11.29,
+                "max": 33.67
+            },
+            "summer": {
+                "count": 17211,
+                "missing": 453,
+                "missing_percentage": 2.5645,
+                "mean": 29.442,
+                "median": 29.25,
+                "mad": 2.81,
+                "std": 4.2115,
+                "p5": 22.915,
+                "p95": 36.93,
+                "min": 4.76,
+                "max": 41.92
+            },
+            "monsoon": {
+                "count": 22724,
+                "missing": 700,
+                "missing_percentage": 2.9884,
+                "mean": 30.0357,
+                "median": 29.5,
+                "mad": 1.6,
+                "std": 2.8058,
+                "p5": 26.35,
+                "p95": 35.5685,
+                "min": 1.92,
+                "max": 43.54
+            },
+            "post_monsoon": {
+                "count": 11478,
+                "missing": 234,
+                "missing_percentage": 1.998,
+                "mean": 27.7063,
+                "median": 27.55,
+                "mad": 2.1,
+                "std": 3.6383,
+                "p5": 22.06,
+                "p95": 34.12,
+                "min": 19.53,
+                "max": 43.5
+            }
+        },
+        "humidity": {
+            "winter": {
+                "count": 17159,
+                "missing": 217,
+                "missing_percentage": 1.2488,
+                "mean": 76.5018,
+                "median": 81.3,
+                "mad": 18.35,
+                "std": 23.4677,
+                "p5": 35.72,
+                "p95": 99.85,
+                "min": 18.78,
+                "max": 99.93
+            },
+            "summer": {
+                "count": 17211,
+                "missing": 453,
+                "missing_percentage": 2.5645,
+                "mean": 77.4754,
+                "median": 97.49,
+                "mad": 2.41,
+                "std": 26.4326,
+                "p5": 28.66,
+                "p95": 99.7,
+                "min": 10.39,
+                "max": 99.93
+            },
+            "monsoon": {
+                "count": 22722,
+                "missing": 702,
+                "missing_percentage": 2.9969,
+                "mean": 92.7827,
+                "median": 99.44,
+                "mad": 0.46,
+                "std": 12.2246,
+                "p5": 63.43,
+                "p95": 99.9,
+                "min": 32.29,
+                "max": 99.9
+            },
+            "post_monsoon": {
+                "count": 11478,
+                "missing": 234,
+                "missing_percentage": 1.998,
+                "mean": 82.6579,
+                "median": 89.75,
+                "mad": 10.1,
+                "std": 19.1202,
+                "p5": 46.187,
+                "p95": 99.9,
+                "min": 31.6,
+                "max": 99.93
+            }
+        },
+        "rainfall": {
+            "winter": {
+                "count": 17162,
+                "missing": 214,
+                "missing_percentage": 1.2316,
+                "mean": 0.003,
+                "median": 0.0,
+                "mad": 0.0,
+                "std": 0.098,
+                "p5": 0.0,
+                "p95": 0.0,
+                "min": 0.0,
+                "max": 10.2
+            },
+            "summer": {
+                "count": 17092,
+                "missing": 572,
+                "missing_percentage": 3.2382,
+                "mean": 0.0214,
+                "median": 0.0,
+                "mad": 0.0,
+                "std": 0.3659,
+                "p5": 0.0,
+                "p95": 0.0,
+                "min": 0.0,
+                "max": 24.4
+            },
+            "monsoon": {
+                "count": 22683,
+                "missing": 741,
+                "missing_percentage": 3.1634,
+                "mean": 0.0942,
+                "median": 0.0,
+                "mad": 0.0,
+                "std": 0.7369,
+                "p5": 0.0,
+                "p95": 0.2,
+                "min": 0.0,
+                "max": 27.0
+            },
+            "post_monsoon": {
+                "count": 11478,
+                "missing": 234,
+                "missing_percentage": 1.998,
+                "mean": 0.0496,
+                "median": 0.0,
+                "mad": 0.0,
+                "std": 0.7924,
+                "p5": 0.0,
+                "p95": 0.0,
+                "min": 0.0,
+                "max": 43.6
+            }
+        }
+    }
+}
