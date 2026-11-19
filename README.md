@@ -1,2 +1,2 @@
 # Thesis
-Different branches for thesises
+Different branches for theses
