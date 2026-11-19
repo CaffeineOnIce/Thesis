@@ -1,0 +1,37 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+venv-ps/
+
+# macOS
+.DS_Store
+
+# Large datasets
+data/raw/
+data/*.parquet
+data/*.csv
+data/*.zip
+*.parquet
+
+# Trained model files
+*.joblib
+*.pkl
+*.h5
+*.pt
+*.pth
+*.keras
+
+# External model storage
+external_imputation/models/
+
+# Local archives
+*.zip
+
+# VS Code local settings
+.vscode/
