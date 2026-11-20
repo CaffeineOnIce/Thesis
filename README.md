@@ -492,8 +492,8 @@ Create the hardware and calibration profiles on the Pi:
 # ~/pollusense/hardware.json
 cat <<'EOF' > ~/pollusense/hardware.json
 {
-  "mq135_rl": 1000,
-  "mq7_rl": 10000
+  "mq135_rl": 10000,
+  "mq7_rl": 1000
 }
 EOF
 
