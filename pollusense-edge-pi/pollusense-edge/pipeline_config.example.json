@@ -1,0 +1,10 @@
+{
+  "model": "M3-L",
+  "detector": "H2",
+  "local_user": "pollusense",
+  "local_pass": "CHANGE_ME",
+  "vm_host": "CHANGE_ME.example.org",
+  "vm_user": "pi-edge",
+  "vm_pass": "CHANGE_ME",
+  "vm_ca": "/home/pi/pollusense/certs/ca.crt"
+}
