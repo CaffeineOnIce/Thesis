@@ -1,0 +1,7 @@
+# Same versions on laptop (training), Raspberry Pi (edge) and VM (cloud): the imputation models are joblib pickles
+# and only load reliably with the scikit-learn version that trained them. Tested together on 20 Nov 2026:
+numpy==2.5.3
+pandas==3.0.5
+scikit-learn==1.9.1
+joblib==1.6.0
+paho-mqtt==2.2.0
