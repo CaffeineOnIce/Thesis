@@ -1,0 +1,73 @@
+.
+|-- aqi.py
+|-- bench
+|   |-- bench_detectors.py
+|   `-- __init__.py
+|-- config
+|   |-- __init__.py
+|   |-- settings_live.py
+|   `-- settings.py
+|-- data
+|   |-- __init__.py
+|   |-- seasonal_bands
+|   |   `-- knowledge_base_2023_2024.json
+|   `-- timestamps.py
+|-- edge
+|   |-- aggregate.py
+|   |-- calibrate.py
+|   |-- calibration.json
+|   |-- data.db
+|   |-- hardware.json
+|   |-- ingest.py
+|   |-- __init__.py
+|   |-- live_calibrated.py
+|   |-- pipeline_config.example.json
+|   |-- r0.json
+|   |-- r0.py
+|   `-- records_15min.csv
+|-- firmware
+|   `-- pollusense_v1
+|       `-- pollusense_v1.ino
+|-- hampel
+|   |-- detectors.py
+|   `-- __init__.py
+|-- impute
+|   |-- aqi.py
+|   |-- features.py
+|   |-- impute.py
+|   |-- __init__.py
+|   |-- models
+|   |   |-- dynamic_imputation.joblib
+|   |   |-- hgb_native.joblib
+|   |   |-- m0_locf_median.joblib
+|   |   |-- mice_extratrees.joblib
+|   |   |-- mice_extratrees_light.joblib
+|   |   |-- stacking_ensemble.joblib
+|   |   `-- stacking_ensemble_light.joblib
+|   |-- models.py
+|   `-- requirements.txt
+|-- pipeline
+|   |-- core.py
+|   |-- forward_raw.py
+|   |-- __init__.py
+|   |-- live_detectors.py
+|   |-- run_cloud.py
+|   |-- run_edge.py
+|   `-- uplink.py
+|-- README_DEPLOY.md
+|-- requirements.txt
+|-- results
+|   |-- frozen_settings.json
+|   `-- hampel_identity_laptop.csv
+|-- run.py
+|-- tests
+|   `-- fixtures
+|       `-- hampel_slice_2024_oct_nov.csv
+|-- tools
+|   |-- __init__.py
+|   |-- pipeline_replay_check.py
+|   |-- site_adapt_bands.py
+|   `-- verify_hampel_identical.py
+`-- tree.txt
+
+16 directories, 55 files

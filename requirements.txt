@@ -1,0 +1,7 @@
+# Same versions on laptop (training) and Raspberry Pi (edge): the imputation models in impute/models/ are joblib
+# pickles made with scikit-learn 1.6.1 and only load reliably with that version.
+numpy==2.1.3
+pandas==2.3.3
+scikit-learn==1.6.1
+joblib==1.6.0
+paho-mqtt==2.2.0

@@ -1,0 +1,71 @@
+{
+  "frozen_at": "2026-11-20T01:12:24",
+  "tuned_on": "2024 (bands from 2023 only); selection rule docs/selection.md",
+  "H1": {
+    "window_size": 24,
+    "k_static": 4.0,
+    "window_by_observed": true
+  },
+  "H2": {
+    "profile_path": "data/seasonal_bands/knowledge_base_2023_2024.json",
+    "window_size": 12,
+    "k_loose": 8.0,
+    "k_strict": 7.0,
+    "k_very": 6.0,
+    "max_k": 9.0,
+    "buffer_mode": "cleaned",
+    "trend_outside_band": true
+  },
+  "H1_loose_reference": {
+    "window_size": 24,
+    "k_static": 10.0,
+    "window_by_observed": true
+  },
+  "H2_placeholder": {
+    "profile_path": "data/seasonal_bands/knowledge_base.json",
+    "window_size": 24,
+    "k_loose": 3.5,
+    "k_strict": 2.5,
+    "k_very": 2.0,
+    "beta": 0.5,
+    "floor": 0.5,
+    "trend_threshold": 0.3,
+    "trend_relaxation": 1.5,
+    "max_k": 4.5,
+    "max_consec": 4,
+    "min_valid_frac": 0.5,
+    "buffer_mode": "cleaned"
+  },
+  "shared_defaults": {
+    "beta": 0.5,
+    "floor": 0.5,
+    "trend_threshold": 0.3,
+    "trend_relaxation": 1.5,
+    "max_consec": 4,
+    "min_valid_frac": 0.5
+  },
+  "rule_check": {
+    "stuck_steps": 4,
+    "ranges": "spec \u00a76"
+  },
+  "band_file": "data/seasonal_bands/knowledge_base_2023_2024.json",
+  "git": "no project repository (only the PhD-wide repo with unrelated staged changes); file hashes below",
+  "sha256": {
+    "hampel\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "hampel\\detectors.py": "0fc1fbddc786546bbfb141058d68cf807b27c6d2557e0cb7aa2bb79110776961",
+    "config/settings.py": "fe9e3138bc8403e516fb089d009a6e582f660d62f2316b5f4ae9ca3457665ed6",
+    "config/settings_placeholder.py": "6255b59183b587975bfce231fe859f46b4cb4c88119cdf85e1cda0039b45d99e",
+    "data/clean_cpcb.py": "eca6f3b048e56075412220f9172975f0c804cb67667fda7e001fb8f57b821eb5",
+    "sim/outliers.py": "ee2525158b3c1b808f61744896df1e705d53c541648706de4e166ae60ca06523",
+    "sim/gaps.py": "55d40db4e67dbf72f59eca9ec46f3bab6c27baefc28ef27e32ee9f8a1e52387a",
+    "run_test_2025.py": "0df1400866cba67eeb0debf8a98364448069d88eaa961f5439692aa8d1eda7f7",
+    "tune_hampel_v2.py": "95ffe3fc73ac6cc00dee1bb3c827ed2994dcbce299ca29e312cc29d6405a3d57",
+    "select_hampel.py": "35d72e385e3859ef41e091cc0d76b844b86700340755c3ad3ae62fe8a13a19c4",
+    "results/hampel_tuning_v2.csv": "2eae97a1af463580c4faf08f6de6c3d2eab15fdb00bb372c0bf0acbf86ead5c2",
+    "results/hampel_selection_rescore.csv": "1e1a956fc59f7b06412de9c9667b8ffe88988695e2e5b1153349a455168a6471",
+    "results/hampel_selected.json": "c3ab9f9443b7e96318990650240fcc533622fccc9ca6d2f50dfffe9fe66e1553",
+    "data/seasonal_bands/knowledge_base.json": "fc4dade6dcdc89e7139f753f1c5269d1475f3a8a621bf65add777ef3770a2331",
+    "data/seasonal_bands/knowledge_base_2023.json": "a9b6123048b2142575a8bc0e18df8fd630536225e0669d7b6362efdd72785a49",
+    "data/seasonal_bands/knowledge_base_2023_2024.json": "e78c1af1f4f40bf8c74c8a706792b5fd6af87a459c83d177fe7c1403c9a66456"
+  }
+}
